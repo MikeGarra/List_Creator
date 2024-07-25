@@ -1,0 +1,177 @@
+/*
+ * Recall the challenge from Section 9:
+ * 
+ * Using a collection of (list) of integers and allowing a user
+ * to select options from a menu to perform operations on the list.
+ * 
+ * Menu should display to the user as follows:
+ * 
+ *  P - Print numbers
+ *  A - Add a number
+ *  M - Display mean of the numbers
+ *  S - Display the smallest number 
+ *  L - Display the largerst number
+ *  Q - Quit
+ * 
+ *  Enter your choice:
+ * 
+ * The program should only accept valid choices from the user and
+ * both upper and lowercase selections should be allowed.
+ * If an illegal choice is made, the user will be prompted with 
+ * "Uknown selection. Please try again." and the menu options will 
+ * be displayed again.
+ * 
+ * If the user enters 'P' or 'p', all elements in the list are displayed.
+ * If the list is empty, display "[] - the list is empty"
+ * If list is not empty, list will be displayed inside '[]' with spaces.
+ * 
+ * If 'A' or 'a' is entered, the user will be prompted to add an integer.
+ * That integer will be added to the list, and displayed saying " '5' added".
+ * Duplicates of numbers are okay
+ * 
+ * If 'M' or 'm' is entered, the mean of the list will be calculated
+ * displayed
+ * If there are no numbers in the list display "Unable to calculate mean - no data
+ * 
+ * If 'S' or 's' is entered. display the smallest number
+ * If list is empty display - "Smallest number unavailable, list is empty"
+ * 
+ * If 'L' or 'l' is entered. display the Largest number
+ * If list is empty display - "Largest number unavailable, list is empty"
+ *
+ * If 'Q' or 'q' is entered, display "Goodbye" and program terminates
+ * 
+*/
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void display_menu();
+void print_numbers(const vector<int>& num_list);
+void display_list(const vector<int>& num_list);
+void add_number(vector<int>& num_list);
+void calculate_mean(const vector<int>& num_list);
+void find_smallest(const vector<int>& num_list);
+void find_largest(const vector<int>& num_list);
+
+int main() {
+    vector<int> num_list{};
+    char entry {};
+    do {
+        display_menu();
+        cin >> entry;
+        switch (entry) {
+            case 'p':
+            case 'P':
+                print_numbers(num_list);
+                break;
+            case 'a':
+            case 'A':
+                add_number(num_list);
+                break;
+            case 'm':
+            case 'M':
+                calculate_mean(num_list);
+                break;
+            case 's':
+            case 'S':
+                find_smallest(num_list);
+                break;
+            case 'l':
+            case 'L':
+                find_largest(num_list);
+                break;
+            case 'q':
+            case 'Q':
+                cout << "Thank you for using Create a List! Goodbye!" << endl;
+                break;
+            default:
+                cout << "Unknown entry, please try again." << endl;
+        }
+    //While the entry is not 'Q' and 'q' the do...while will continue to loop
+    } while (entry != 'Q' && entry != 'q');
+    return 0;
+}
+
+//Function to display the menu that users will chose an option from 
+void display_menu() {
+        cout << "Welcome! Are you ready to create a list of numbers?" << endl;
+        cout << "Please look over the choices in the menu:" << endl;
+        cout << "\nP - Print numbers" << endl;
+        cout << "A - Add a number" << endl;
+        cout << "M - Display mean of the numbers" << endl;
+        cout << "S - Display the smallest number" << endl;
+        cout << "L - Display the largerst number" << endl;
+        cout << "Q - Quit" << endl;
+        cout << "\nPlease enter your choice: " << endl;
+}
+
+//Function to print a list of the numbers that were added by the user
+//If no numbers are in the list the function will print a message stating the list is empty
+void print_numbers(const vector<int>& num_list) {
+        if(num_list.empty())
+            cout << "[] - The list is empty." << endl;
+        else {
+            display_list(num_list);
+        }
+}
+
+//Function for the program to display the list of numbers when the list is not empty
+void display_list(const vector<int>& num_list) {
+    cout << "[ ";
+    for (auto num : num_list)
+        cout << num << " ";
+    cout << "]" << endl;
+}
+
+//Function that allows the user to add a number to the list
+void add_number(vector<int>& num_list) {
+        int num{};
+            cout << "Please enter an integer to add to the list: ";
+        cin >> num;
+        num_list.push_back(num);
+            cout << num << " has been added to the list." << endl;
+}
+
+//Function that calculates the mean of the numbers in the list
+//If no numbers are in the list the function will print a message stating the list is empty
+void calculate_mean(const vector<int>& num_list) {
+    if(num_list.empty())
+        cout << "[] - The list is empty, unable to calculate mean." << endl;
+    else {
+        int total {};
+        for (auto num : num_list) 
+            total += num;
+        cout << "The mean is: " << static_cast<double>(total) / num_list.size() << endl;
+            } 
+}
+
+//Function that displays the smallest number in the list
+//If no numbers are in the list the function will print a message stating the list is empty
+void find_smallest(const vector<int>& num_list) {
+    if (num_list.empty())
+        cout << "Unable to determine the smallest, the list is empty." << endl;
+    else {
+        int smallest = num_list.at(0);
+        for (auto num : num_list) 
+            if (num < smallest)
+                smallest = num;
+        cout << "The smallest number is: " << smallest << endl;
+            }
+}
+
+//Function that displays the largest number in the list
+//If no numbers are in the list the function will print a message stating the list is empty
+void find_largest(const vector<int>& num_list) {
+    if (num_list.empty())
+        cout << "Unable to determine the largest, the list is empty." << endl;
+    else {
+        int largest = num_list.at(0);
+        for (auto num : num_list) 
+            if (num > largest)
+                largest = num;
+        cout << "The largest number is: " << largest << endl;
+            }
+}
