@@ -10,3 +10,7 @@ If the user has not added any numbers to the list, the list will display a messa
 In this section of code labled Part1, it is a very basic level of C++ that shows how the program can be created without the use of functions. 
 Though the program is store in the main, it is easy to read showing in the code where each part of the menu's options function. 
 I plan to add in a Part2 where the code is cleaned up and functions are added for the process of each option in the menu.
+
+Part 2:
+
+I updated the original List Creator code to have a Switch statement take the place of for loops and nested for loops. Functions were placed in each option of the switch that have the for and nested for loops from the previous code in them. This allows for an easier understanding of what call in the Switch statement is making and what the function is doing for each call made. A function for displaying the menu and displaying the list of numbers was added as well. All that is in the main is the Switch statement, the do...while statement, the entry of the user and the vector of the numbers that will be added by the user when they choose the add_number() funtion.
